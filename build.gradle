@@ -3,6 +3,7 @@
  *
  * This generated file contains a sample Java project to get you started.
  * For more details take a look at the Java Quickstart chapter in the Gradle
+
  * User Manual available at https://docs.gradle.org/6.2.2/userguide/tutorial_java_projects.html
  */
 
@@ -18,11 +19,19 @@ repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:28.1-jre'
+    implementation 'com.onkiup:linker-parser:0.9'
+    implementation 'com.onkiup:linker-common-grammars:0.9'
+  implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.28'
+  implementation group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.28'
+    compile group: 'com.1stleg', name: 'jnativehook', version: '2.1.0'
+    implementation group: 'org.hid4java', name: 'hid4java', version: '0.5.0'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
