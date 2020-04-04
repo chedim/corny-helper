@@ -1,9 +1,8 @@
 package com.onkiup.corny.helper.layout;
 
-import java.util.Optional;
-
-import com.onkiup.linker.grammars.commons.strings.ACommonString;
+import com.onkiup.corny.helper.arguments.CornyConnector;
 import com.onkiup.linker.parser.Rule;
+import com.onkiup.linker.parser.annotation.CapturePattern;
 import com.onkiup.linker.parser.annotation.OptionalToken;
 
 /**
@@ -14,25 +13,44 @@ import com.onkiup.linker.parser.annotation.OptionalToken;
 
 public class Key implements LayoutElement {
   private static final String OBRA = "[";
-  private ACommonString name;
-  @OptionalToken
-  private Code code;
+  private Definition[] definitions;
   private static final String CBRA = "]";
 
-  public String name() {
-    return name.toString();
+  public Definition[] definitions() {
+    return definitions;
   }
 
-  public Optional<Integer> code() {
-    return Optional.ofNullable(code).map(Code::code);
-  }
-
-  public static class Code implements Rule {
+  public static class Definition implements Rule {
+    private Code code;
+    @OptionalToken
     private static final String MARKER = "|";
-    private Integer code;
 
-    public Integer code() {
+    public Code code() {
       return code;
     }
   }
+
+  public interface Code extends Rule {
+
+  }
+
+  public static class StandardCode implements Code {
+    @CapturePattern(until="[~\\\\\\|\\]]")
+    private String code;
+
+    public String code() {
+      return code;
+    }
+  }
+
+  public static class LayerCode implements Code {
+    private static final String MARKER = "~";
+    @CapturePattern(until="[\\|\\]]")
+    private String layer;
+
+    public String layer() {
+      return layer;
+    }
+  }
 }
+

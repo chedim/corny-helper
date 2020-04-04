@@ -2,6 +2,7 @@ package com.onkiup.corny.helper.graphics;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 import javax.swing.JPanel;
 
@@ -62,5 +63,11 @@ public class CornyLayer extends JPanel implements LayoutManager {
   @Override
   public void layoutContainer(Container parent) {
 
+  }
+  
+  public Optional<CornyButton> findKey(int code) {
+    return buttons.stream()
+      .filter(button -> button.isKey(code))
+      .findFirst();
   }
 }

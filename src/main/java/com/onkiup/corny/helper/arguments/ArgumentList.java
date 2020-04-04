@@ -57,7 +57,7 @@ public class ArgumentList implements Rule {
 
   public <X extends AnArgument> Optional<X> getLast(Class<X> ofType) {
     List<X> all = getAll(ofType);
-    if (all.size() == 0) {
+    if (all == null || all.size() == 0) {
       return Optional.empty();
     }
     return Optional.of(all.get(all.size() - 1));
